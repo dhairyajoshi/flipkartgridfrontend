@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously, prefer_const_constructors
 
-import 'package:equatable/equatable.dart';
 import 'package:flipkartgridfrontend/bloc/appbloc.dart';
 import 'package:flipkartgridfrontend/screens/products.dart';
 import 'package:flipkartgridfrontend/services/database.dart';

@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors
 
 import 'package:flipkartgridfrontend/bloc/auth/signupbloc.dart';
 import 'package:flipkartgridfrontend/screens/login.dart';
@@ -71,7 +70,7 @@ class SignUpScreen extends StatelessWidget {
             return Container(
               height: double.infinity,
               width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: ListView(
                 children: [
                   Form(
@@ -79,53 +78,53 @@ class SignUpScreen extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           'FlipKart',
                           style:
                               TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(height: 40),
+                        const SizedBox(height: 40),
                         SizedBox(
                           width: 250,
                           child: TextFormField(
                             controller: _nameController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               labelText: 'Name',
                               prefixIcon: Icon(Icons.person),
                             ),
                             validator: _validateName,
                           ),
                         ),
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
                         SizedBox(
                           width: 250,
                           child: TextFormField(
                             controller: _emailController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               labelText: 'Email',
                               prefixIcon: Icon(Icons.email),
                             ),
                             validator: _validateEmail,
                           ),
                         ),
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
                         SizedBox(
                           width: 250,
                           child: TextFormField(
                             controller: _phoneController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               labelText: 'Phone No.',
                               prefixIcon: Icon(Icons.phone),
                             ),
                             validator: _validatePhone,
                           ),
                         ),
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
                         SizedBox(
                           width: 250,
                           child: TextFormField(
                             controller: _passwordController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               labelText: 'Password',
                               prefixIcon: Icon(Icons.lock),
                             ),
@@ -133,12 +132,12 @@ class SignUpScreen extends StatelessWidget {
                             validator: _validatePassword,
                           ),
                         ),
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
                         SizedBox(
                           width: 250,
                           child: TextFormField(
                             controller: _repasswordController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               labelText: 'Confirm Password',
                               prefixIcon: Icon(Icons.lock),
                             ),
@@ -146,22 +145,22 @@ class SignUpScreen extends StatelessWidget {
                             validator: _validatePassword,
                           ),
                         ),
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
                         SizedBox(
                           width: 250,
                           child: TextFormField(
                             controller: _referralController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               labelText: 'Referral Code',
                               prefixIcon: Icon(Icons.code),
                             ),
                           ),
                         ),
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Signing up as: ',style: TextStyle(fontSize: 16),),
+                            const Text('Signing up as: ',style: TextStyle(fontSize: 16),),
                             Radio<int>(
                               value: 0,
                               groupValue: state.grp,
@@ -170,7 +169,7 @@ class SignUpScreen extends StatelessWidget {
                                     .add(SelectRoleEvent(value!));
                               },
                             ),
-                            Text('Customer'),
+                            const Text('Customer'),
                             Radio<int>(
                               value: 1,
                               groupValue: state.grp,
@@ -179,10 +178,10 @@ class SignUpScreen extends StatelessWidget {
                                     .add(SelectRoleEvent(value!));
                               },
                             ),
-                            Text('Seller'),
+                            const Text('Seller'),
                           ],
                         ),
-                        SizedBox(height: 25),
+                        const SizedBox(height: 25),
                         ElevatedButton(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
@@ -194,21 +193,21 @@ class SignUpScreen extends StatelessWidget {
                                   _referralController.text));
                             }
                           },
-                          child: Text('Signup'),
+                          child: const Text('Signup'),
                         ),
-                        SizedBox(height: 25),
+                        const SizedBox(height: 25),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Already a User?'),
-                            SizedBox(width: 5),
+                            const Text('Already a User?'),
+                            const SizedBox(width: 5),
                             TextButton(
                               onPressed: () {
                                 Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
                                         builder: ((context) => LoginScreen())));
                               },
-                              child: Text('Login'),
+                              child: const Text('Login'),
                             ),
                           ],
                         ),
@@ -219,7 +218,7 @@ class SignUpScreen extends StatelessWidget {
               ),
             );
           }
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         },

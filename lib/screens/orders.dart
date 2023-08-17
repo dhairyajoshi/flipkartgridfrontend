@@ -1,4 +1,3 @@
-// ignore_for_file: sized_box_for_whitespace, prefer_const_constructors
 
 import 'package:flipkartgridfrontend/bloc/appbloc.dart';
 import 'package:flipkartgridfrontend/bloc/home/orderbloc.dart';
@@ -18,11 +17,11 @@ class OrderScreen extends StatelessWidget {
       child: BlocBuilder<OrderBloc, AppState>(
         builder: (context, state) {
           if (state is OrderLoadedState) {
-            return Container(
+            return SizedBox(
               height: double.infinity,
               width: double.infinity,
               child: ListView(shrinkWrap: true, children: [
-                TopBar(),
+                const TopBar(),
                 Padding(
                   padding: const EdgeInsets.all(15),
                   child: ListView.builder(
@@ -36,11 +35,11 @@ class OrderScreen extends StatelessWidget {
               ]),
             );
           } else if (state is SellerOrderLoadedState) {
-            return Container(
+            return SizedBox(
               height: double.infinity,
               width: double.infinity,
               child: ListView(shrinkWrap: true, children: [
-                TopBar(),
+                const SellerTopBar(),
                 Padding(
                   padding: const EdgeInsets.all(15),
                   child: ListView.builder(
@@ -55,7 +54,7 @@ class OrderScreen extends StatelessWidget {
               ]),
             );
           }
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         },
@@ -68,13 +67,13 @@ class OrderScreen extends StatelessWidget {
 class TransactionCard extends StatelessWidget {
   final TransactionModel transaction;
 
-  TransactionCard({required this.transaction});
+  const TransactionCard({super.key, required this.transaction});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -82,11 +81,11 @@ class TransactionCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(Icons.shopping_cart, color: Colors.blue),
-                SizedBox(width: 8),
+                const Icon(Icons.shopping_cart, color: Colors.blue),
+                const SizedBox(width: 8),
                 Text(
                   transaction.name,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.black87,
@@ -94,39 +93,39 @@ class TransactionCard extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               'Seller: ${transaction.sellerName}',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
+              style: const TextStyle(fontSize: 14, color: Colors.grey),
             ),
             Text(
               'Date: ${transaction.date}',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
+              style: const TextStyle(fontSize: 14, color: Colors.grey),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               'Price: ₹${transaction.price.toStringAsFixed(2)}',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Row(
               children: [
                 Text(
                   'Supercoins: ${transaction.supercoins.toStringAsFixed(2)}',
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                  style: const TextStyle(fontSize: 14, color: Colors.grey),
                 ),
-                Spacer(),
+                const Spacer(),
                 Text(
                   'Reward Earned: ${transaction.rewardEarned.toStringAsFixed(2)}',
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                  style: const TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
           ],
         ),
       ),
@@ -137,13 +136,13 @@ class TransactionCard extends StatelessWidget {
 class SellerTransactionCard extends StatelessWidget {
   final TransactionModel transaction;
 
-  SellerTransactionCard({required this.transaction});
+  const SellerTransactionCard({super.key, required this.transaction});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -151,11 +150,11 @@ class SellerTransactionCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(Icons.shopping_cart, color: Colors.blue),
-                SizedBox(width: 8),
+                const Icon(Icons.shopping_cart, color: Colors.blue),
+                const SizedBox(width: 8),
                 Text(
                   transaction.name,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.black87,
@@ -163,30 +162,30 @@ class SellerTransactionCard extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               'Buyer Id: ${transaction.userId}',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
+              style: const TextStyle(fontSize: 14, color: Colors.grey),
             ),
             Text(
               'Date: ${transaction.date}',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
+              style: const TextStyle(fontSize: 14, color: Colors.grey),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               'Price: ₹${transaction.price.toStringAsFixed(2)}',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               'Reward Earned: ${transaction.rewardEarned.toStringAsFixed(2)}',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
+              style: const TextStyle(fontSize: 14, color: Colors.grey),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
           ],
         ),
       ),

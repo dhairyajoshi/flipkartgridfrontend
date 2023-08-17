@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flipkartgridfrontend/bloc/appbloc.dart';
 import 'package:flipkartgridfrontend/bloc/auth/loginbloc.dart';
@@ -40,35 +39,35 @@ class LoginScreen extends StatelessWidget {
             return Container(
               height: double.infinity,
               width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: Form(
                 key: _formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       'FlipKart',
                       style:
                           TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 50),
+                    const SizedBox(height: 50),
                     SizedBox(
                       width: 250,
                       child: TextFormField(
                         controller: _emailController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'Email',
                           prefixIcon: Icon(Icons.email),
                         ),
                         validator: _validateEmail,
                       ),
                     ),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     SizedBox(
                       width: 250,
                       child: TextFormField(
                         controller: _passwordController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'Password',
                           prefixIcon: Icon(Icons.lock),
                         ),
@@ -76,7 +75,7 @@ class LoginScreen extends StatelessWidget {
                         validator: _validatePassword,
                       ),
                     ),
-                    SizedBox(height: 25),
+                    const SizedBox(height: 25),
                     ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
@@ -86,14 +85,14 @@ class LoginScreen extends StatelessWidget {
                               _passwordController.text));
                         }
                       },
-                      child: Text('Login'),
+                      child: const Text('Login'),
                     ),
-                    SizedBox(height: 25),
+                    const SizedBox(height: 25),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('New User?'),
-                        SizedBox(
+                        const Text('New User?'),
+                        const SizedBox(
                           width: 5,
                         ),
                         TextButton(
@@ -103,7 +102,7 @@ class LoginScreen extends StatelessWidget {
                                   builder: ((context) => SignUpScreen())),
                             );
                           },
-                          child: Text('Signup'),
+                          child: const Text('Signup'),
                         ),
                       ],
                     ),
@@ -112,7 +111,7 @@ class LoginScreen extends StatelessWidget {
               ),
             );
           }
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         },

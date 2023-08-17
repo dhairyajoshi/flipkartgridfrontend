@@ -1,4 +1,5 @@
-// ignore_for_file: prefer_const_constructors_in_immutables,prefer_const_literals_to_create_immutables, prefer_const_constructors, use_key_in_widget_constructors
+
+// ignore_for_file: must_be_immutable
 
 import 'package:flipkartgridfrontend/bloc/appbloc.dart';
 import 'package:flipkartgridfrontend/bloc/home/productbloc.dart';
@@ -15,20 +16,20 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final cardWidth = 280.0;
+    const cardWidth = 300.0;
     final crossAxisCount = (screenWidth / cardWidth).floor();
-    final aspectRatio = cardWidth / 280.0;
+    const aspectRatio = cardWidth / 355.0;
     return Scaffold(
         body: BlocProvider(
       create: (context) => ProductBloc()..add(FetchProductEvent()),
       child: BlocBuilder<ProductBloc, AppState>(
         builder: (context, state) {
           if (state is ProductLoadedState) {
-            return Container(
+            return SizedBox(
               height: double.infinity,
               width: double.infinity,
               child: ListView(children: [
-                TopBar(),
+                const TopBar(),
                 Padding(
                   padding: const EdgeInsets.all(15),
                   child: GridView.builder(
@@ -52,17 +53,17 @@ class ProductScreen extends StatelessWidget {
               ]),
             );
           } else if (state is SellerProductLoadedState) {
-            return Container(
+            return SizedBox(
               height: double.infinity,
               width: double.infinity,
               child: ListView(children: [
-                TopBar(),
+                const SellerTopBar(),
                 Padding(
                   padding: const EdgeInsets.all(15),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Your Products',
                         style: TextStyle(
                             fontSize: 30, fontWeight: FontWeight.bold),
@@ -72,8 +73,8 @@ class ProductScreen extends StatelessWidget {
                           BlocProvider.of<ProductBloc>(context)
                               .add(AddProductEvent(context));
                         },
-                        icon: Icon(Icons.add),
-                        label: Text('Add New Product'),
+                        icon: const Icon(Icons.add),
+                        label: const Text('Add New Product'),
                         style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.resolveWith<Color>(
@@ -82,7 +83,7 @@ class ProductScreen extends StatelessWidget {
                                 return Colors.blue.withOpacity(0.8);
                               }
                               return Colors
-                                  .transparent; // Use the default button color
+                                  .transparent;
                             },
                           ),
                           foregroundColor:
@@ -97,12 +98,12 @@ class ProductScreen extends StatelessWidget {
                           shape: MaterialStateProperty.all<OutlinedBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
-                              side: BorderSide(color: Colors.blue),
+                              side: const BorderSide(color: Colors.blue),
                             ),
                           ),
                           padding:
                               MaterialStateProperty.all<EdgeInsetsGeometry>(
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                           ),
                         ),
                       )
@@ -132,7 +133,7 @@ class ProductScreen extends StatelessWidget {
               ]),
             );
           }
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         },
@@ -145,7 +146,7 @@ class ProductCard extends StatelessWidget {
   final ProductModel product;
   BuildContext ctx;
   AppState state;
-  ProductCard(this.ctx, this.state, this.product);
+  ProductCard(this.ctx, this.state, this.product, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -153,7 +154,7 @@ class ProductCard extends StatelessWidget {
       // height: 200,
       child: Card(
         elevation: 4,
-        margin: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -175,41 +176,41 @@ class ProductCard extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(
                 product.name,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
                 'Seller: ${product.sellerName}',
                 style: TextStyle(fontSize: 14, color: Colors.grey[600]),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
                 'Price: ₹ ${product.price.toStringAsFixed(2)}',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   color: Colors.blue,
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.star,
                     color: Colors.orange,
                     size: 16,
                   ),
-                  SizedBox(width: 4),
+                  const SizedBox(width: 4),
                   Text(
                     product.rating.toString(),
-                    style: TextStyle(fontSize: 14),
+                    style: const TextStyle(fontSize: 14),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   ElevatedButton(
                     onPressed: () {
                       BlocProvider.of<ProductBloc>(context)
@@ -218,7 +219,7 @@ class ProductCard extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       primary: Colors.green,
                     ),
-                    child: Text('Buy'),
+                    child: const Text('Buy'),
                   ),
                 ],
               ),
@@ -242,7 +243,7 @@ class SellerProductCard extends StatelessWidget {
       // height: 200,
       child: Card(
         elevation: 4,
-        margin: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -264,39 +265,39 @@ class SellerProductCard extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(
                 product.name,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
                 'Seller: ${product.sellerName}',
                 style: TextStyle(fontSize: 14, color: Colors.grey[600]),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
                 'Price: ₹ ${product.price.toStringAsFixed(2)}',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   color: Colors.blue,
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.star,
                     color: Colors.orange,
                     size: 16,
                   ),
-                  SizedBox(width: 4),
+                  const SizedBox(width: 4),
                   Text(
                     product.rating.toString(),
-                    style: TextStyle(fontSize: 14),
+                    style: const TextStyle(fontSize: 14),
                   ),
                 ],
               ),

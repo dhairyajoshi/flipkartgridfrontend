@@ -13,17 +13,19 @@ class ProfileLoadingState extends AppState {
 }
 
 class ProfileLoadedState extends AppState {
+  int isSeller;
   UserModel user;
-  ProfileLoadedState(this.user);
+  ProfileLoadedState(this.isSeller, this.user);
 
   @override
   // TODO: implement props
-  List<Object?> get props => [user];
+  List<Object?> get props => [isSeller, user];
 }
 
 class LoadProfileEvent extends AppEvent {}
 
 class ProfileBloc extends Bloc<AppEvent, AppState> {
+  int isSeller = 0;
   ProfileBloc() : super(ProfileLoadingState()) {
     on<LoadProfileEvent>(
       (event, emit) async {
@@ -31,8 +33,10 @@ class ProfileBloc extends Bloc<AppEvent, AppState> {
         await DatabaseService().updateUser();
         final pref = await SharedPreferences.getInstance();
         final user = UserModel.fromJson(json.decode(pref.getString('user')!));
+        final role = pref.get('role');
 
-        emit(ProfileLoadedState(user));
+        role == 'seller' ? isSeller = 1 : isSeller = 0;
+        emit(ProfileLoadedState(isSeller, user));
       },
     );
   }

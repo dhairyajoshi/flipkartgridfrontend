@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flipkartgridfrontend/models/customermodel.dart';
 import 'package:flipkartgridfrontend/models/productmodel.dart';
 import 'package:flipkartgridfrontend/models/rewardmodel.dart';
 import 'package:flipkartgridfrontend/models/transactionmodel.dart';
@@ -167,5 +168,61 @@ class DatabaseService {
     }
 
     return {'total': 0, 'rewards': rewards};
+  }
+
+  Future<List<CustomerModel>> getTopCustomers() async {
+    final pref = await SharedPreferences.getInstance();
+    final headers = {'Authorization': 'Bearer ${pref.get('token')}'};
+    final List<CustomerModel> customers = [];
+    final response = await http.get(
+      Uri.parse('$baseUrl/seller/topcustomers'),
+      headers: headers,
+    );
+
+    if (response.statusCode == 200) {
+      final List<dynamic> data = json.decode(response.body);
+
+      for (var item in data) {
+        final String customerName = item['customerName'];
+        final String customerId = item['customer'];
+        final double totalAmount = item['totalAmount'];
+        final List<TransactionModel> orders = [];
+
+        for (var orderData in item['orders']) {
+          final TransactionModel order = TransactionModel.fromJson(orderData);
+          orders.add(order);
+        }
+
+        final CustomerModel customer = CustomerModel(
+          customerName: customerName,
+          customer: customerId,
+          totalAmount: totalAmount,
+          orders: orders,
+        );
+
+        customers.add(customer);
+      }
+
+      return customers;
+    }
+
+    return customers;
+  }
+
+  Future<String> rewardCustomer(String customerId, int supercoins) async {
+    final pref = await SharedPreferences.getInstance();
+    final headers = <String, String>{
+      'Authorization': 'Bearer ${pref.get('token')}',
+      'content-type': 'application/json'
+    };
+
+    final data = {"customerId": customerId, "supercoins": supercoins};
+
+    final res = await http.post(Uri.parse('$baseUrl/seller/rewardcustomer'),
+        headers: headers, body: json.encode(data));
+
+    final jsondata = json.decode(res.body);
+
+    return jsondata['msg'];
   }
 }

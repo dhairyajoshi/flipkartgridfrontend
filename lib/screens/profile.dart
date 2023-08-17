@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors
 
 import 'package:flipkartgridfrontend/bloc/appbloc.dart';
 import 'package:flipkartgridfrontend/bloc/home/profilebloc.dart';
@@ -22,15 +21,16 @@ class ProfileScreen extends StatelessWidget {
       child: BlocBuilder<ProfileBloc, AppState>(
         builder: (context, state) {
           if (state is ProfileLoadedState) {
-            return Container(
+            return SizedBox(
               height: double.infinity,
               width: double.infinity,
-              child: ListView(
-                  shrinkWrap: true,
-                  children: [TopBar(), ProfileCard(user: state.user)]),
+              child: ListView(shrinkWrap: true, children: [
+                state.isSeller == 0 ? const TopBar() : const SellerTopBar(),
+                ProfileCard(user: state.user)
+              ]),
             );
           }
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         },
@@ -43,26 +43,26 @@ class ProfileScreen extends StatelessWidget {
 class ProfileCard extends StatelessWidget {
   final UserModel user;
 
-  ProfileCard({required this.user});
+  const ProfileCard({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
-      margin: EdgeInsets.all(16),
+      margin: const EdgeInsets.all(16),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Profile Details',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             _buildDetailRow('Name', user.name),
             _buildDetailRow('Email', user.email),
             // _buildDetailRow('Phone', user.phone),
@@ -85,17 +85,17 @@ class ProfileCard extends StatelessWidget {
         children: [
           Text(
             label,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
               color: Colors.grey,
             ),
           ),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
           Flexible(
             child: SelectableText(
               value,
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
           ),
         ],
@@ -109,7 +109,7 @@ class ProfileCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Wallet Address',
             style: TextStyle(
               fontSize: 16,
@@ -117,16 +117,16 @@ class ProfileCard extends StatelessWidget {
               color: Colors.grey,
             ),
           ),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
           Flexible(
             child: SelectableText(
               walletAddress,
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.copy,
               size: 14,
             ),

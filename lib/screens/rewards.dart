@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors
 
 import 'package:flipkartgridfrontend/bloc/appbloc.dart';
 import 'package:flipkartgridfrontend/bloc/home/rewardbloc.dart';
@@ -23,15 +22,15 @@ class RewardScreen extends StatelessWidget {
               height: double.infinity,
               width: double.infinity,
               child: ListView(shrinkWrap: true, children: [
-                TopBar(),
-                SizedBox(
+                state.isSeller == 0 ? const TopBar() : const SellerTopBar(),
+                const SizedBox(
                   height: 20,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Text(
                     'Total Rewards Earned: ${state.totalReward}',
-                    style: TextStyle(fontSize: 20),
+                    style: const TextStyle(fontSize: 20),
                   ),
                 ),
                 Padding(
@@ -47,7 +46,7 @@ class RewardScreen extends StatelessWidget {
               ]),
             );
           }
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         },
@@ -60,27 +59,28 @@ class RewardScreen extends StatelessWidget {
 class RewardCard extends StatelessWidget {
   final RewardModel reward;
 
-  RewardCard({required this.reward});
+  const RewardCard({super.key, required this.reward});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
-      margin: EdgeInsets.all(16),
+      margin: const EdgeInsets.all(16),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Reward Details',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             _buildDetailRow('Tokens:', reward.tokens),
+            _buildDetailRow('From:', reward.from),
             _buildDetailRow('Created At:', reward.createdAt),
             _buildDetailRow('Expiry Date:', reward.expiryDate),
           ],
@@ -97,17 +97,17 @@ class RewardCard extends StatelessWidget {
         children: [
           Text(
             label,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
               color: Colors.grey,
             ),
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Flexible(
             child: Text(
               value,
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
           ),
         ],
