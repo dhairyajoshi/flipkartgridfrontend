@@ -1,10 +1,7 @@
-
 import 'package:flipkartgridfrontend/bloc/appbloc.dart';
 import 'package:flipkartgridfrontend/bloc/home/profilebloc.dart';
 import 'package:flipkartgridfrontend/models/usermodel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
 
@@ -65,10 +62,10 @@ class ProfileCard extends StatelessWidget {
             const SizedBox(height: 16),
             _buildDetailRow('Name', user.name),
             _buildDetailRow('Email', user.email),
-            // _buildDetailRow('Phone', user.phone),
+            _buildDetailRow('Phone', user.phone ?? "unavailable"),
             _buildDetailRow(
                 'Account Balance', '₹${user.account.toStringAsFixed(2)}'),
-            _buildWalletAddressRow(user.walletAddress), // Updated row
+            _buildWalletAddressRow(user.walletAddress),
             _buildDetailRow('Supercoins', user.supercoins.toString()),
             _buildDetailRow('Referral Code', user.referralCode!),
           ],

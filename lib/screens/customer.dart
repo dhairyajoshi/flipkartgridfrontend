@@ -1,8 +1,6 @@
-
 import 'package:flipkartgridfrontend/bloc/appbloc.dart';
 import 'package:flipkartgridfrontend/bloc/home/customerbloc.dart';
 import 'package:flipkartgridfrontend/components/topbar.dart';
-import 'package:flipkartgridfrontend/models/customermodel.dart';
 import 'package:flipkartgridfrontend/models/transactionmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -69,7 +67,8 @@ class CustomerCard extends StatelessWidget {
   final double totalAmount;
   final List<TransactionModel> orders;
 
-  const CustomerCard({super.key, 
+  const CustomerCard({
+    super.key,
     required this.ctx,
     required this.customerName,
     required this.customerId,
@@ -83,7 +82,7 @@ class CustomerCard extends StatelessWidget {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Order Details for $customerName'),
-          content: Container(
+          content: SizedBox(
             width: double.maxFinite,
             child: ListView(
               shrinkWrap: true,
@@ -92,7 +91,8 @@ class CustomerCard extends StatelessWidget {
                   ListTile(
                     title: Text(order.name),
                     subtitle: Text('Date: ${order.date}'),
-                    trailing: Text('Price: ₹ ${order.price.toStringAsFixed(2)}'),
+                    trailing:
+                        Text('Price: ₹ ${order.price.toStringAsFixed(2)}'),
                   ),
               ],
             ),
@@ -130,9 +130,10 @@ class CustomerCard extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
-            title: Text('Total Transaction: ₹ ${totalAmount.toStringAsFixed(2)}'),
+            title:
+                Text('Total Transaction: ₹ ${totalAmount.toStringAsFixed(2)}'),
             onTap: () {
-              _showOrderDetailsDialog(context); 
+              _showOrderDetailsDialog(context);
             },
           ),
         ],
@@ -140,7 +141,6 @@ class CustomerCard extends StatelessWidget {
     );
   }
 }
-
 
 class OrderDetailsCard extends StatelessWidget {
   final TransactionModel order;

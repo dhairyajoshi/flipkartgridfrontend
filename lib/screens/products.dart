@@ -1,12 +1,9 @@
-
 // ignore_for_file: must_be_immutable
 
 import 'package:flipkartgridfrontend/bloc/appbloc.dart';
 import 'package:flipkartgridfrontend/bloc/home/productbloc.dart';
 import 'package:flipkartgridfrontend/components/topbar.dart';
 import 'package:flipkartgridfrontend/models/productmodel.dart';
-import 'package:flipkartgridfrontend/screens/login.dart';
-import 'package:flipkartgridfrontend/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,9 +13,9 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    const cardWidth = 300.0;
+    const cardWidth = 280.0;
     final crossAxisCount = (screenWidth / cardWidth).floor();
-    const aspectRatio = cardWidth / 355.0;
+    const aspectRatio = cardWidth / 280.0;
     return Scaffold(
         body: BlocProvider(
       create: (context) => ProductBloc()..add(FetchProductEvent()),
@@ -82,8 +79,7 @@ class ProductScreen extends StatelessWidget {
                               if (states.contains(MaterialState.hovered)) {
                                 return Colors.blue.withOpacity(0.8);
                               }
-                              return Colors
-                                  .transparent;
+                              return Colors.transparent;
                             },
                           ),
                           foregroundColor:
@@ -103,7 +99,8 @@ class ProductScreen extends StatelessWidget {
                           ),
                           padding:
                               MaterialStateProperty.all<EdgeInsetsGeometry>(
-                            const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
                           ),
                         ),
                       )
@@ -151,7 +148,6 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      // height: 200,
       child: Card(
         elevation: 4,
         margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
@@ -217,7 +213,7 @@ class ProductCard extends StatelessWidget {
                           .add(BuyProductEvent(ctx, product));
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.green,
+                      backgroundColor: Colors.green,
                     ),
                     child: const Text('Buy'),
                   ),
@@ -235,12 +231,11 @@ class SellerProductCard extends StatelessWidget {
   final ProductModel product;
   BuildContext ctx;
   AppState state;
-  SellerProductCard(this.ctx, this.state, this.product);
+  SellerProductCard(this.ctx, this.state, this.product, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      // height: 200,
       child: Card(
         elevation: 4,
         margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),

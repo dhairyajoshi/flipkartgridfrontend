@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:another_flushbar/flushbar.dart';
@@ -14,7 +16,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomerLoadingState extends AppState {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
@@ -24,7 +25,6 @@ class CustomerLoadedState extends AppState {
   int isSeller;
   CustomerLoadedState(this.isSeller, this.customers, this.expanded);
   @override
-  // TODO: implement props
   List<Object?> get props => [customers, isSeller, expanded];
 }
 
@@ -56,7 +56,7 @@ class CustomerBloc extends Bloc<AppEvent, AppState> {
     on<RewardCustomerEvent>(
       (event, emit) async {
         int quantity = 0;
-        TextEditingController _superController =
+        TextEditingController superController =
             TextEditingController(text: '0');
         final pref = await SharedPreferences.getInstance();
         final token = pref.get('token');
@@ -64,7 +64,6 @@ class CustomerBloc extends Bloc<AppEvent, AppState> {
           Navigator.of(event.ctx).pushReplacement(
               MaterialPageRoute(builder: ((context) => LoginScreen())));
         }
-        final user = UserModel.fromJson(json.decode(pref.getString('user')!));
         final tokens = await DatabaseService().getTokens();
         await showDialog(
             context: event.ctx,
@@ -75,24 +74,24 @@ class CustomerBloc extends Bloc<AppEvent, AppState> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Supercoins: ${tokens}'),
-                    SizedBox(height: 16),
+                    Text('Supercoins: $tokens'),
+                    const SizedBox(height: 16),
                     Row(
                       children: [
-                        Text('Redeem supercoins: '),
+                        const Text('Redeem supercoins: '),
                         IconButton(
                           onPressed: () {
                             if (quantity > 0) {
                               quantity--;
                               if (quantity < 0) {
                                 quantity = 0;
-                                _superController.text = '0';
+                                superController.text = '0';
                               } else {
-                                _superController.text = quantity.toString();
+                                superController.text = quantity.toString();
                               }
                             }
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.remove,
                             size: 14,
                           ),
@@ -102,18 +101,18 @@ class CustomerBloc extends Bloc<AppEvent, AppState> {
                           height: 38,
                           child: Center(
                             child: TextField(
-                              controller: _superController,
+                              controller: superController,
                               onChanged: (value) {
                                 try {
                                   quantity = int.parse(value);
                                   if (quantity > int.parse(tokens) ||
                                       quantity < 0) {
                                     quantity = int.parse(tokens);
-                                    _superController.text = tokens;
+                                    superController.text = tokens;
                                   }
                                 } catch (e) {
                                   quantity = int.parse(tokens);
-                                  _superController.text = tokens;
+                                  superController.text = tokens;
                                 }
                               },
                             ),
@@ -124,12 +123,12 @@ class CustomerBloc extends Bloc<AppEvent, AppState> {
                             quantity++;
                             if (quantity > int.parse(tokens)) {
                               quantity = int.parse(tokens);
-                              _superController.text = tokens;
+                              superController.text = tokens;
                             } else {
-                              _superController.text = quantity.toString();
+                              superController.text = quantity.toString();
                             }
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.add,
                             size: 14,
                           ),
@@ -143,7 +142,7 @@ class CustomerBloc extends Bloc<AppEvent, AppState> {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: Text('Cancel'),
+                    child: const Text('Cancel'),
                   ),
                   ElevatedButton(
                     onPressed: () async {
@@ -151,11 +150,11 @@ class CustomerBloc extends Bloc<AppEvent, AppState> {
                           .rewardCustomer(event.id, quantity);
                       await Flushbar(
                         message: res,
-                        duration: Duration(seconds: 3),
+                        duration: const Duration(seconds: 3),
                         flushbarPosition: FlushbarPosition.TOP,
                         flushbarStyle: FlushbarStyle.FLOATING,
                         backgroundColor: Colors.red,
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.error,
                           color: Colors.white,
                         ),
@@ -164,7 +163,7 @@ class CustomerBloc extends Bloc<AppEvent, AppState> {
                       Navigator.of(context).pop();
                       await DatabaseService().updateUser();
                     },
-                    child: Text('Confirm'),
+                    child: const Text('Confirm'),
                   ),
                 ],
               );

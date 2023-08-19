@@ -1,4 +1,3 @@
-
 import 'package:flipkartgridfrontend/bloc/appbloc.dart';
 import 'package:flipkartgridfrontend/bloc/home/orderbloc.dart';
 import 'package:flipkartgridfrontend/components/topbar.dart';
@@ -99,7 +98,7 @@ class TransactionCard extends StatelessWidget {
               style: const TextStyle(fontSize: 14, color: Colors.grey),
             ),
             Text(
-              'Date: ${transaction.date}',
+              'Purchase Date: ${transaction.date.replaceFirst(RegExp(r'\s'), '/').replaceFirst(RegExp(r'\s'), '/')}',
               style: const TextStyle(fontSize: 14, color: Colors.grey),
             ),
             const SizedBox(height: 16),
@@ -115,12 +114,12 @@ class TransactionCard extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  'Supercoins: ${transaction.supercoins.toStringAsFixed(2)}',
+                  'Supercoins: ${transaction.supercoins}',
                   style: const TextStyle(fontSize: 14, color: Colors.grey),
                 ),
                 const Spacer(),
                 Text(
-                  'Reward Earned: ${transaction.rewardEarned.toStringAsFixed(2)}',
+                  'Reward Earned: ${transaction.rewardEarned}',
                   style: const TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ],
@@ -168,7 +167,7 @@ class SellerTransactionCard extends StatelessWidget {
               style: const TextStyle(fontSize: 14, color: Colors.grey),
             ),
             Text(
-              'Date: ${transaction.date}',
+              'Date: ${transaction.date.replaceFirst(RegExp(r'\s'), '/').replaceFirst(RegExp(r'\s'), '/')}',
               style: const TextStyle(fontSize: 14, color: Colors.grey),
             ),
             const SizedBox(height: 16),

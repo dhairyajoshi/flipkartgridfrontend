@@ -1,9 +1,7 @@
-
 import 'package:flipkartgridfrontend/bloc/appbloc.dart';
 import 'package:flipkartgridfrontend/bloc/home/rewardbloc.dart';
 import 'package:flipkartgridfrontend/components/topbar.dart';
 import 'package:flipkartgridfrontend/models/rewardmodel.dart';
-import 'package:flipkartgridfrontend/models/transactionmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,7 +16,7 @@ class RewardScreen extends StatelessWidget {
       child: BlocBuilder<RewardBloc, AppState>(
         builder: (context, state) {
           if (state is RewardLoadedState) {
-            return Container(
+            return SizedBox(
               height: double.infinity,
               width: double.infinity,
               child: ListView(shrinkWrap: true, children: [
@@ -79,9 +77,10 @@ class RewardCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            _buildDetailRow('Tokens:', reward.tokens),
+            _buildDetailRow('Supercoins:', reward.tokens),
+            _buildDetailRow('Received:', reward.received),
             _buildDetailRow('From:', reward.from),
-            _buildDetailRow('Created At:', reward.createdAt),
+            _buildDetailRow('Received At:', reward.createdAt),
             _buildDetailRow('Expiry Date:', reward.expiryDate),
           ],
         ),

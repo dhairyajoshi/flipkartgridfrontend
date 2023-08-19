@@ -1,4 +1,3 @@
-
 import 'package:flipkartgridfrontend/bloc/auth/signupbloc.dart';
 import 'package:flipkartgridfrontend/screens/login.dart';
 import 'package:flutter/material.dart';
@@ -80,8 +79,8 @@ class SignUpScreen extends StatelessWidget {
                       children: [
                         const Text(
                           'FlipKart',
-                          style:
-                              TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 40),
                         SizedBox(
@@ -160,7 +159,10 @@ class SignUpScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text('Signing up as: ',style: TextStyle(fontSize: 16),),
+                            const Text(
+                              'Signing up as: ',
+                              style: TextStyle(fontSize: 16),
+                            ),
                             Radio<int>(
                               value: 0,
                               groupValue: state.grp,
@@ -185,12 +187,14 @@ class SignUpScreen extends StatelessWidget {
                         ElevatedButton(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              BlocProvider.of<SignupBloc>(context).add(SignupEvent(
-                                  context,
-                                  _nameController.text,
-                                  _emailController.text,
-                                  _passwordController.text,
-                                  _referralController.text));
+                              BlocProvider.of<SignupBloc>(context).add(
+                                  SignupEvent(
+                                      context,
+                                      _nameController.text,
+                                      _emailController.text,
+                                      _phoneController.text,
+                                      _passwordController.text,
+                                      _referralController.text));
                             }
                           },
                           child: const Text('Signup'),

@@ -8,7 +8,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileLoadingState extends AppState {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
@@ -18,7 +17,6 @@ class ProfileLoadedState extends AppState {
   ProfileLoadedState(this.isSeller, this.user);
 
   @override
-  // TODO: implement props
   List<Object?> get props => [isSeller, user];
 }
 

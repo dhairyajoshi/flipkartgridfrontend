@@ -3,12 +3,14 @@ class RewardModel {
   final String createdAt;
   final String expiryDate;
   final String from;
+  final String received;
 
   RewardModel({
     required this.tokens,
     required this.createdAt,
     required this.expiryDate,
     required this.from,
+    required this.received,
   });
 
   factory RewardModel.fromJson(Map<String, dynamic> json) {
@@ -16,6 +18,7 @@ class RewardModel {
         tokens: json['tokens'].toString(),
         createdAt: json['createdAt'],
         expiryDate: json['expiryDate'],
+        received: json['received'],
         from: json['from']);
   }
 
@@ -24,7 +27,8 @@ class RewardModel {
       'tokens': tokens,
       'createdAt': createdAt,
       'expiryDate': expiryDate,
-      'from': from
+      'from': from,
+      'received': received
     };
   }
 }

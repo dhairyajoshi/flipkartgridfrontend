@@ -1,7 +1,6 @@
-// ignore_for_file: use_build_context_synchronously, prefer_const_constructors
+// ignore_for_file: use_build_context_synchronously, prefer_const_constructors, must_be_immutable
 
 import 'package:another_flushbar/flushbar.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flipkartgridfrontend/bloc/appbloc.dart';
 import 'package:flipkartgridfrontend/screens/products.dart';
 import 'package:flipkartgridfrontend/services/database.dart';
@@ -11,7 +10,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthCheckState extends AppState {
   @override
-  // TODO: implement props
   List<Object?> get props => throw UnimplementedError();
 }
 
@@ -19,14 +17,13 @@ class SignupState extends AppState {
   int grp;
   SignupState(this.grp);
   @override
-  // TODO: implement props
   List<Object?> get props => [grp];
 }
 
 class SignupEvent extends AppEvent {
-  String email, password, name, referral;
+  String email, password, name, referral,phone;
   BuildContext ctx;
-  SignupEvent(this.ctx, this.name, this.email, this.password, this.referral);
+  SignupEvent(this.ctx, this.name, this.email,this.phone, this.password, this.referral);
 }
 
 class SelectRoleEvent extends AppEvent {
@@ -59,8 +56,9 @@ class SignupBloc extends Bloc<AppEvent, AppState> {
       final data = {
         'name': event.name,
         "email": event.email,
+        "phone":event.phone,
         "password": event.password,
-        "role": grp==1?"seller":"customer"
+        "role": grp == 1 ? "seller" : "customer"
       };
       if (event.referral != "") data['refId'] = event.referral;
       final res = await DatabaseService().signup(data);

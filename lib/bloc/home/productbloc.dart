@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, prefer_const_constructors
+// ignore_for_file: use_build_context_synchronously, prefer_const_constructors, must_be_immutable
 
 import 'dart:convert';
 
@@ -14,7 +14,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductLoadingState extends AppState {
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 
@@ -22,7 +21,6 @@ class ProductLoadedState extends AppState {
   List<ProductModel> products;
   ProductLoadedState(this.products);
   @override
-  // TODO: implement props
   List<Object?> get props => [products];
 }
 
@@ -30,7 +28,6 @@ class SellerProductLoadedState extends AppState {
   List<ProductModel> products;
   SellerProductLoadedState(this.products);
   @override
-  // TODO: implement props
   List<Object?> get props => [products];
 }
 
@@ -68,7 +65,7 @@ class ProductBloc extends Bloc<AppEvent, AppState> {
       (event, emit) async {
         int quantity = 0;
         bool canBuy = true;
-        TextEditingController _superController =
+        TextEditingController superController =
             TextEditingController(text: '0');
         final pref = await SharedPreferences.getInstance();
         final token = pref.get('token');
@@ -91,7 +88,7 @@ class ProductBloc extends Bloc<AppEvent, AppState> {
                   Text('Product: ${event.product.name}'),
                   Text('Price: ₹ ${event.product.price.toStringAsFixed(2)}'),
                   Text('Account Balance: ₹ ${user.account}'),
-                  Text('Supercoins: ${tokens}'),
+                  Text('Supercoins: $tokens'),
                   SizedBox(height: 16),
                   Row(
                     children: [
@@ -102,9 +99,9 @@ class ProductBloc extends Bloc<AppEvent, AppState> {
                             quantity--;
                             if (quantity < 0) {
                               quantity = 0;
-                              _superController.text = '0';
+                              superController.text = '0';
                             } else {
-                              _superController.text = quantity.toString();
+                              superController.text = quantity.toString();
                             }
                           }
                         },
@@ -118,7 +115,7 @@ class ProductBloc extends Bloc<AppEvent, AppState> {
                         height: 38,
                         child: Center(
                           child: TextField(
-                            controller: _superController,
+                            controller: superController,
                             onChanged: (value) {
                               try {
                                 quantity = int.parse(value);
@@ -126,11 +123,11 @@ class ProductBloc extends Bloc<AppEvent, AppState> {
                                     quantity < 0) {
                                   canBuy = false;
                                   quantity = int.parse(tokens);
-                                  _superController.text = tokens;
+                                  superController.text = tokens;
                                 }
                               } catch (e) {
                                 quantity = int.parse(tokens);
-                                _superController.text = tokens;
+                                superController.text = tokens;
                               }
                             },
                           ),
@@ -141,9 +138,9 @@ class ProductBloc extends Bloc<AppEvent, AppState> {
                           quantity++;
                           if (quantity > int.parse(tokens)) {
                             quantity = int.parse(tokens);
-                            _superController.text = tokens;
+                            superController.text = tokens;
                           } else {
-                            _superController.text = quantity.toString();
+                            superController.text = quantity.toString();
                           }
                         },
                         icon: Icon(
@@ -199,10 +196,10 @@ class ProductBloc extends Bloc<AppEvent, AppState> {
         await showDialog(
           context: event.ctx,
           builder: (BuildContext context) {
-            TextEditingController _productNameController =
+            TextEditingController productNameController =
                 TextEditingController();
-            TextEditingController _priceController = TextEditingController();
-            TextEditingController _ratingController = TextEditingController();
+            TextEditingController priceController = TextEditingController();
+            TextEditingController ratingController = TextEditingController();
 
             return AlertDialog(
               title: Text('Add New Product'),
@@ -210,16 +207,16 @@ class ProductBloc extends Bloc<AppEvent, AppState> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   TextField(
-                    controller: _productNameController,
+                    controller: productNameController,
                     decoration: InputDecoration(labelText: 'Product Name'),
                   ),
                   TextField(
-                    controller: _priceController,
+                    controller: priceController,
                     decoration: InputDecoration(labelText: 'Price'),
                     keyboardType: TextInputType.number,
                   ),
                   TextField(
-                    controller: _ratingController,
+                    controller: ratingController,
                     decoration: InputDecoration(labelText: 'Rating'),
                     keyboardType: TextInputType.number,
                   ),
@@ -234,11 +231,10 @@ class ProductBloc extends Bloc<AppEvent, AppState> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    String productName = _productNameController.text;
-                    double price =
-                        double.tryParse(_priceController.text) ?? 0.0;
+                    String productName = productNameController.text;
+                    double price = double.tryParse(priceController.text) ?? 0.0;
                     double rating =
-                        double.tryParse(_ratingController.text) ?? 0.0;
+                        double.tryParse(ratingController.text) ?? 0.0;
 
                     final res = await DatabaseService().addProduct(
                         productName: productName, price: price, rating: rating);
