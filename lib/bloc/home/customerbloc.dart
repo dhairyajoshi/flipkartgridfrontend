@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flipkartgridfrontend/bloc/appbloc.dart';
@@ -106,13 +107,14 @@ class CustomerBloc extends Bloc<AppEvent, AppState> {
                                 try {
                                   quantity = int.parse(value);
                                   if (quantity > int.parse(tokens) ||
-                                      quantity < 0) {
-                                    quantity = int.parse(tokens);
-                                    superController.text = tokens;
+                                      quantity < 0 ||
+                                      quantity > 2000) {
+                                    quantity = min(2000, int.parse(tokens));
+                                    superController.text = quantity.toString();
                                   }
                                 } catch (e) {
-                                  quantity = int.parse(tokens);
-                                  superController.text = tokens;
+                                  quantity = min(2000, int.parse(tokens));
+                                  superController.text = quantity.toString();
                                 }
                               },
                             ),
@@ -121,9 +123,10 @@ class CustomerBloc extends Bloc<AppEvent, AppState> {
                         IconButton(
                           onPressed: () {
                             quantity++;
-                            if (quantity > int.parse(tokens)) {
-                              quantity = int.parse(tokens);
-                              superController.text = tokens;
+                            if (quantity > int.parse(tokens) ||
+                                quantity > 2000) {
+                              quantity = min(2000, int.parse(tokens));
+                              superController.text = quantity.toString();
                             } else {
                               superController.text = quantity.toString();
                             }

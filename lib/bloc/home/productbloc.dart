@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously, prefer_const_constructors, must_be_immutable
 
 import 'dart:convert';
-
+import 'dart:math';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flipkartgridfrontend/bloc/appbloc.dart';
 import 'package:flipkartgridfrontend/models/productmodel.dart';
@@ -120,14 +120,16 @@ class ProductBloc extends Bloc<AppEvent, AppState> {
                               try {
                                 quantity = int.parse(value);
                                 if (quantity > int.parse(tokens) ||
-                                    quantity < 0) {
+                                    quantity < 0 ||
+                                    quantity > 5000) {
                                   canBuy = false;
-                                  quantity = int.parse(tokens);
-                                  superController.text = tokens;
+                                  quantity = min(int.parse(tokens), 5000);
+                                  superController.text = quantity.toString();
                                 }
                               } catch (e) {
-                                quantity = int.parse(tokens);
-                                superController.text = tokens;
+                                quantity = min(int.parse(tokens), 5000);
+                                ;
+                                superController.text = quantity.toString();
                               }
                             },
                           ),
@@ -136,9 +138,9 @@ class ProductBloc extends Bloc<AppEvent, AppState> {
                       IconButton(
                         onPressed: () {
                           quantity++;
-                          if (quantity > int.parse(tokens)) {
-                            quantity = int.parse(tokens);
-                            superController.text = tokens;
+                          if (quantity > int.parse(tokens) || quantity > 5000) {
+                            quantity = min(int.parse(tokens), 5000);
+                            superController.text = quantity.toString();
                           } else {
                             superController.text = quantity.toString();
                           }
